@@ -202,7 +202,7 @@ jobs:
       - put: tfstate
         params:
           env_name: ((env))
-          run_plan: true
+          plan_run: true
           terraform_source: merged-stack/terraform
 
   - name: functional-tests
