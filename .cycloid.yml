@@ -6,8 +6,12 @@ keywords:
   - 'aws'
   - 'lambda'
   - 'demo'
+  - 'gcp'
+  - 'cloudfunction'
 technologies:
   - technology: Aws Lambda
+    version: n/a
+  - technology: GCP Cloud Function
     version: n/a
 author: 'Cycloid'
 image: 'https://raw.githubusercontent.com/cycloid-community-catalog/stack-hello-world/master/icon.png'
@@ -23,4 +27,7 @@ config:
   terraform:
     aws:
       path: 'terraform-aws/main.tf.sample'
+      destination: '($ project $)/terraform/($ environment $)/main.tf'
+    gcp:
+      path: 'terraform-gcp/main.tf.sample'
       destination: '($ project $)/terraform/($ environment $)/main.tf'
