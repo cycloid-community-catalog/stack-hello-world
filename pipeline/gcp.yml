@@ -50,14 +50,12 @@ resource_types:
 resources:
   - name: git_code
     type: git
-    check_every: 2m
     source:
       uri: https://github.com/cycloid-community-catalog/stack-hello-world
       branch: code-gcp
 
   - name: git_stack
     type: git
-    check_every: 2m
     source:
       uri: https://github.com/cycloid-community-catalog/stack-hello-world
       branch: ag-gcp
@@ -66,7 +64,6 @@ resources:
 
   - name: git_config
     type: git
-    check_every: 2m
     source:
       uri: ((config_git_repository))
       branch: ((config_git_branch))
