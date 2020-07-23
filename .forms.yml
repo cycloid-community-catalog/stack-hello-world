@@ -1,0 +1,118 @@
+---
+aws:
+  pipeline:
+    Terraform:
+      - name: "AWS access key"
+        description: "Amazon AWS access key for Terraform."
+        key: aws_access_key
+        widget: cy_cred
+        type: string
+        default: "((aws.access_key))"
+      - name: "AWS secret key"
+        description: "Amazon AWS secret key for Terraform."
+        key: aws_secret_key
+        widget: cy_cred
+        type: string
+        default: "((aws.secret_key))"
+      - name: "Amazon AWS region"
+        description: "Amazon AWS region to use for Terraform."
+        key: aws_default_region
+        widget: auto_complete
+        type: string
+        values: ["eu-north-1","ap-south-1","eu-west-3","eu-west-2","eu-west-1","ap-northeast-2","ap-northeast-1","sa-east-1","ca-central-1","ap-southeast-1","ap-southeast-2","eu-central-1","us-east-1","us-east-2","us-west-1","us-west-2"]
+        default: eu-west-1
+      - name: "Terraform storage bucket"
+        description: "AWS S3 bucket name to store terraform remote state file."
+        key: terraform_storage_bucket_name
+        widget: simple_text
+        type: string
+        default: ($ organization_canonical $)-terraform-remote-state
+    Repos:
+      - name: "Config repository"
+        key: config_git_repository
+        type: string
+        widget: cy_crs
+        description: "Git repository URL containing the config of the stack."
+        default: "git@github.com:MyUser/config.git"
+        required: true
+      - name: "Config git key"
+        description: "SSH key pair to fetch the config Git repository."
+        key: config_git_private_key
+        type: string
+        widget: cy_cred
+        default: "((ssh_config.ssh_key))"
+        required: true
+      - name: "Config branch"
+        description: "Branch of the config Git repository."
+        key: config_git_branch
+        widget: cy_branch
+        type: string
+        description: "The branch used by the config repository"
+        source: config_git_repository
+        default: "config"
+        required: true
+    App:
+      - name: "Release bucket object path"
+        description: "AWS S3 bucket path to store release of the code. This will be in the same bucket as the tfstate Terraform file."
+        key: release_bucket_object_path
+        widget: simple_text
+        type: string
+        default: /($ project $)/($ environment $)/($ project $).zip
+gcp:
+  pipeline:
+    Terraform:
+      - name: "GCP project name"
+        description: "The GCP project name to use"
+        key: gcp_project
+        widget: simple_text
+        type: string
+        default: "($ project $)"
+      - name: "GCP zone"
+        key: gcp_default_region
+        widget: auto_complete
+        type: string
+        values: [asia-east1,asia-east2,asia-northeast1,asia-northeast2,asia-northeast3,asia-south1,asia-southeast1,australia-southeast1,europe-north1,europe-west1,europe-west2,europe-west3,europe-west4,europe-west6,northamerica-northeast1,southamerica-east1,us-central1,us-east1,us-east4,us-west1,us-west2,us-west3,us-west4]
+        default: "europe-west1"
+      - name: "GCP json credentials"
+        description: "GCP credentials in json format which should be used"
+        key: gcp_credentials
+        widget: cy_cred
+        type: string
+        default: "((gcp.json_key))"
+      - name: "Terraform storage bucket"
+        description: "Google Cloud Storage bucket name to store terraform remote state file."
+        key: terraform_storage_bucket_name
+        widget: simple_text
+        type: string
+        default: ($ organization_canonical $)-terraform-remote-state
+    Repos:
+      - name: "Config repository"
+        key: config_git_repository
+        type: string
+        widget: cy_crs
+        description: "Git repository URL containing the config of the stack."
+        default: "git@github.com:MyUser/config.git"
+        required: true
+      - name: "Config git key"
+        description: "SSH key pair to fetch the config Git repository."
+        key: config_git_private_key
+        type: string
+        widget: cy_cred
+        default: "((ssh_config.ssh_key))"
+        required: true
+      - name: "Config branch"
+        description: "Branch of the config Git repository."
+        key: config_git_branch
+        widget: cy_branch
+        type: string
+        description: "The branch used by the config repository"
+        source: config_git_repository
+        default: "config"
+        required: true
+    App:
+      - name: "Release bucket object path"
+        description: "AWS S3 bucket path to store release of the code. This will be in the same bucket as the tfstate Terraform file."
+        key: release_bucket_object_path
+        widget: simple_text
+        type: string
+        default: /($ project $)/($ environment $)/($ project $).zip
